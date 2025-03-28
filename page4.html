@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+</head>
+<body>
+  <a href = index.html style ="padding-left: 162px;"> Whirl Back</a>
+
+  <script>
+let letters = "𓁶,𓁷,𓁸,𓁹,𓁺,𓁻,𓁼,𓁽,𓁿,𓂀,𓂁,𓂂,𓂃,𓂄,𓂅,𓂆,𓂇,𓂈,𓂉,𓂊,𓂋,𓂌,𓂍,𓂎,𓂏,𓂐,𓂑,𓂒,𓂓,𓂔,𓂘,𓂙,𓂚,𓂛,𓂧,𓂨,𓂪,𓂬,𓂭,𓂷,𓂸,𓂻,𓂾,𓃀,𓃃,";
+
+
+let y = -500;
+let x = 0;
+let yLocs = []
+
+
+function setup() {
+ createCanvas(windowWidth, windowHeight);
+  
+  
+
+  letters = split(letters,",");
+  
+  
+  print(letters)
+  x = random(0,width);
+  
+      for(let j = 0; j<15; j++){
+       
+      yLocs[j]  = random(-200,-800)         
+      }
+ 
+}
+
+function draw() {
+  background(220,205,180);
+  for(let i = 0; i<letters.length; i++){
+    for(let j = 0; j<15; j++){
+      
+      fill(0,i*15)
+      stroke(10,i*15 )
+      y = yLocs[j];
+      
+      
+      
+      text(letters[i],j*100 +10, 20*i + y)
+    
+      yLocs[j] += 0.2;
+      
+      if(yLocs[j]> 400){
+         yLocs[j]  = random(-200,-800)   
+      }
+    }
+     
+  }
+  
+  //y+=3;
+  
+
+ // print(y)
+  
+}
+</script>
+</body>

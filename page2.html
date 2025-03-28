@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+</head>
+<body>
+  <a href = index.html style ="padding-left: 162px;"> Whirl Back</a>
+
+  <script>
+function setup() {
+    createCanvas(windowWidth,windowHeight);
+    //noStroke();
+    rectMode(CENTER);
+    
+  }
+  
+  function draw() {
+    background(0,10);
+    
+    
+    ///amt = map(mouseX,0,width,0,200);
+    //filter(BLUR,10);
+    noFill();
+    translate(20,20);
+    for(let x = 0; x < 50; x++){
+      for(let y = 0; y < 50; y++){
+       for(let i = 0; i <1; i++)
+       {
+         fill(0);
+         stroke(random(100), random (200), random(255));
+         ellipse(x* 40 +random(20), y*40+random(2), 50-i*6,50-i*6);
+         
+       } 
+      }
+    }
+    
+    
+    
+  }
+
+  </script>
+  </body>
