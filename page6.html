@@ -9,39 +9,28 @@
   <a href = index.html style ="padding-left: 162px;"> Whirl Back</a>
 
   <script>
-  let x=15
-let y=15
+let t = "Rylanthus"; let size = 20;
+let waves = []; let num; 
+
 function setup() {
-  createCanvas(800, 800, WEBGL);
+  createCanvas(windowWidth, windowHeight);
+  colorMode(HSB);
+  num = width/size;
+  
+  for (let i=0; i<num; i++) {
+    let x = i*size + size/2;
+    let amt = 1 / num * i;
+    waves[i] = new Wave(t, x, amt);
+  }
+  
 }
 
 function draw() {
-  background('lightblue');
-fill('lightblue');
+  background(270, 30, 15);
+  for (let i=0; i<num; i++) {
+    waves[i].display();
+  }
   
-  stroke('yellow');
-  line(-width/2,0,width/2,0);
-  line(0,-height/2,0,height/2);
-  
-  stroke('white')
-  for(let x = -600; x <=600; x += 200){
-   push();
-    translate(x,0,0);
-    ellipsoid(40,40,25);
-    pop();
-  }
-  for(let x = -600; x <=600; x +=150){
-  push();
-  translate(x,1,1);
-  ellipsoid(40,40,25);
-  pop();
-  }
-  for(let y = -600; y <=600; y +=50){
-    push();
-    translate(y,1,1);
-    ellipsoid(40,40,25);
-    pop();
-  }
 }
 </script>
 </body>
