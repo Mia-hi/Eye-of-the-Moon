@@ -9,12 +9,12 @@
   <a href = index.html style ="padding-left: 162px;"> Whirl Back</a>
 
   <script>
-class Letter{
+    class Letter{
   constructor(x, y) {
-    this.alphabets = ["B", "a", "b", "y", "l", "o", "n", "i", "a", "n", "k", "i", "n", "g", "H", "a", "m", "m", "u", "r", "a", "b", "i", "l", "a", "w"];
+    this.alphabets = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
     this.letter = random(this.alphabets);
     this.f = random(fonts);
-    this.size = random(50, 50);
+    this.size = random(10, 30);
     
     this.x = x;
     this.y = y
@@ -22,7 +22,7 @@ class Letter{
     this.dy = random(-5, 5);
     
     this.angle = random(360);
-    this.angleV = random(5, 5);
+    this.angleV = random(1, 3);
   }
   
   update() {
@@ -56,13 +56,13 @@ let fonts = [];
 let letters = [];
 
 function preload() {
-  fonts[0] = loadFont("fonts/NotoSansEgyptianHieroglyphs-Regular.ttf");
-  fonts[0] = loadFont("fonts/NotoSansMeroitic-Regular.ttf");
+  fonts[0] = loadFont("assets/NotoSansEgyptianHieroglyphs-Regular.ttf");
+  fonts[0] = loadFont("assets/NotoSansMeroitic-Regular.ttf");
   
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(400, 400);
   angleMode(DEGREES);
   
 }
@@ -83,7 +83,5 @@ function draw() {
 function mouseDragged() {
   letters.push(new Letter(mouseX, mouseY));
 }
-
-
-  </script>
-  </body>
+</script>
+</body>
