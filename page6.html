@@ -9,39 +9,165 @@
   <a href = index.html style ="padding-left: 162px;"> Whirl Back</a>
 
   <script>
-  let x=15
-let y=15
+  let t = "Rylanthus"; let size = 20;
+let waves = []; let num; 
+
 function setup() {
-  createCanvas(800, 800, WEBGL);
+  createCanvas(windowWidth, windowHeight);
+  colorMode(HSB);
+  num = width/size;
+  
+  for (let i=0; i<num; i++) {
+    let x = i*size + size/2;
+    let amt = 1 / num * i;
+    waves[i] = new Wave(t, x, amt);
+  }
+  
 }
 
 function draw() {
-  background('lightblue');
-fill('lightblue');
+  background(270, 30, 15);
+  for (let i=0; i<num; i++) {
+    waves[i].display();
+  }
   
-  stroke('yellow');
-  line(-width/2,0,width/2,0);
-  line(0,-height/2,0,height/2);
+}
+class Text {
+    constructor(t, x, y, distance, amt, c) {
+      this.t = t;
+      this.x = x;
+      this.y = y;
+      
+      this.amt = amt;
+      this.dir = 1;
+      this.y0 = 0;
+      this.distance = distance;
+      this.c = c;
+      
+    }
+    
+    display() {
+      noStroke();
+      fill(this.c, 20, 250);
+      textSize(size);
+      textAlign(CENTER, CENTER);
+      text(this.t, this.x, this.y);
+    }
+    
+    move() {
+      this.y = this.y0 + this.dir * easeInOutQuad(this.amt) * this.distance;
+      
+      if (this.amt >= 1) {
+        this.amt = 0;
+        this.y0 += this.dir * this.distance;
+        this.dir *= -1;
+      }
+      this.amt += 0.01;
+    }
+  }
+  class Wave {
+    constructor(t, x, amt) {
+      this.t = t;
+      this.tArray = this.t.split("");
+      this.x = x;
+      this.y = 2;
+      
+      this.wave = [];
+      for (let i=0; i<this.tArray.length; i++) {
+        let distance = height/2 + (height/2)/this.tArray.length * (i + 1);
+        let c = 200 + 100 / this.tArray.length * i;
+        this.wave[i] = new Text(this.tArray[i], this.x, this.y, distance, amt,c);
+      }
+    }
+    
+    display() {
+      for (let i=0; i<this.tArray.length; i++) {
+        this.wave[i].move();
+        this.wave[i].display();
+      }
+    }
+  }
+  function easeInQuad(x) {
+    return x * x;
+  }
+
+function easeOutQuad(x) {
+    return 1 - (1-x) * (1-x);
+  }
   
-  stroke('white')
-  for(let x = -600; x <=600; x += 200){
-   push();
-    translate(x,0,0);
-    ellipsoid(40,40,25);
-    pop();
+function easeInOutQuad(x) {
+    return x < 0.5 ? 2 * x * x : 1 - pow(-2 * x + 2, 2) / 2;
+}
+
+function easeInCubic(x) {
+  return x * x * x;
+}
+
+function easeOutCubic(x) {
+  return 1 - pow(1 - x, 3);
+}
+
+function easeInOutCubic(x) {
+  return x < 0.5 ? 4 * x * x * x : 1 - pow(-2 * x + 2, 3) / 2;
+}
+
+function easeInQuart(x) {
+  return x * x * x * x;
+}
+
+function easeOutQuart(x) {
+  return 1 - pow(1 - x, 4);
+}
+
+function easeInOutQuart(x) {
+  return x < 0.5 ? 8 * x * x * x * x : 1 - pow(-2 * x + 2, 4) / 2;
+}
+
+function easeInQuint(x) {
+  return x * x * x * x * x;
+}
+
+function easeOutQuint(x) {
+  return 1 - pow(1 - x, 5);
+}
+
+function easeInOutQuint(x) {
+  return x < 0.5 ? 16 * x * x * x * x * x : 1 - pow(-2 * x + 2, 5) / 2;
+}
+
+function easeInSine(x) {
+  return 1 - cos((x * 180) / 2);
+}
+
+function easeOutSine(x) {
+  return sin((x * 180) / 2);
+}
+
+function easeInOutSine(x) {
+  return -(cos(180 * x) - 1) / 2;
+}
+
+function easeOutBounce(x) {
+  const n1 = 7.5625;
+  const d1 = 2.75;
+
+  if (x < 1 / d1) {
+      return n1 * x * x;
+  } else if (x < 2 / d1) {
+      return n1 * (x -= 1.5 / d1) * x + 0.75;
+  } else if (x < 2.5 / d1) {
+      return n1 * (x -= 2.25 / d1) * x + 0.9375;
+  } else {
+      return n1 * (x -= 2.625 / d1) * x + 0.984375;
   }
-  for(let x = -600; x <=600; x +=150){
-  push();
-  translate(x,1,1);
-  ellipsoid(40,40,25);
-  pop();
-  }
-  for(let y = -600; y <=600; y +=50){
-    push();
-    translate(y,1,1);
-    ellipsoid(40,40,25);
-    pop();
-  }
+}
+
+function easeInBounce(x) {
+  return 1 - easeOutBounce(1 - x);
+}
+
+function easeInOutBounce(x) {
+  return x < 0.5 ? (1 - easeOutBounce(1 - 2 * x)) / 2 : (1 + easeOutBounce(2 * x - 1)) / 2;
 }
 </script>
 </body>

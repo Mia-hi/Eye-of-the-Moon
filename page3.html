@@ -9,35 +9,103 @@
   <a href = index.html style ="padding-left: 162px;"> Whirl Back</a>
 
   <script>
-function setup() {
-    createCanvas(windowWidth,windowHeight);
-    //noStroke();
-    rectMode(CENTER);
-    
+class Letter {
+  constructor(x, y, scl) {
+    this.pos = createVector(x, y);
+    this.scl = scl;
   }
   
-  function draw() {
-    background(0,10);
+  display() {
+    this.calcVel(center, this.pos);
+    this.shift = map(this.distance, 0, 1000, 10, 0);
+    this.osc = sin(TWO_PI*angle + this.shift);
     
-    
-    ///amt = map(mouseX,0,width,0,200);
-    //filter(BLUR,10);
-    noFill();
-    translate(20,20);
-    for(let x = 0; x < 50; x++){
-      for(let y = 0; y < 50; y++){
-       for(let i = 0; i <10; i++)
-       {
-         fill(0);
-         stroke(random(100), random (200), random(255));
-         ellipse(x* 40 +random(20), y*40+random(2), 50-i*6,50-i*6);
-         
-       } 
-      }
+    this.fontS = map(this.osc, -1, 1, 0.3, 1.5);
+    push();
+    translate(this.pos.x + (this.vel.x * this.osc), this.pos.y + (this.vel.y * this.osc)); 
+    fill(255);
+    // ellipse(0, 0, 10, 10);
+    scale(this.fontS);
+    textAlign(CENTER, CENTER);
+    text("𓂀,☯︎", 0, 0);
+    pop();
+  }
+  
+  calcAngle() {
+    let x = center.x - this.pos.x;
+    let y = center.y - this.pos.y; 
+    let theta = atan(y/x);
+
+    if (this.pos.x > center.x && this.pos.y > center.y) {
+      return theta;
+    } else if (this.pos.x <= center.x && this.pos.y >= center.y) {
+      return PI - abs(theta);
+    } else if (this.pos.x <= center.x && this.pos.y <= center.y) {
+      return PI + theta;
+    } else if (this.pos.x >= center.x && this.pos.y <= center.y) {
+      return TWO_PI - abs(theta);
     }
-    
-    
+ 
+}
+
+ calcVel() {
+    let angle = this.calcAngle();
+    this.vel = p5.Vector.fromAngle(angle);
+    this.distance = dist(center.x, center.y, this.pos.x, this.pos.y);
+    this.vel.setMag(this.distance * this.scl);
     
   }
+
+}
+let center; 
+let angle = 0;
+let letters = []; 
+let cols; let rows; let size = 20; 
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+   center = createVector(width/2, height/2);
+  cols = width/size;
+  rows = height/size;
+  
+  for (let i=0; i<cols; i++) {
+    letters[i] = [];
+    for (let j=0; j<rows; j++) {
+      let x = i*size + size/2;
+      let y = j*size + size/2;
+      letters[i][j] = new Letter(x, y, 0.3);
+    }
+  }
+
+
+}
+
+function draw() {
+  background(210);
+  
+  fill(255);
+  ellipse(center.x, center.y, 10, 10);
+  
+  for (let i=0; i<cols; i++) {
+    for (let j=0; j<rows; j++) {
+      
+      if (mouseIsPressed > 30) {
+        letters[i][j].scl = 1;
+      } else {
+        if (letters[i][j].scl > 0.3) {
+          letters[i][j].scl -= 0.01;
+        } else {
+          letters[i][j].scl = 0.3;
+        }
+        
+      }
+      letters[i][j].display();
+    }
+  }
+  
+  angle += 0.005;
+  
+
+}
   </script>
   </body>
