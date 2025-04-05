@@ -90,10 +90,11 @@ function draw() {
     for (let j=0; j<rows; j++) {
       
       if (mouseIsPressed > 30) {
-        letters[i][j].scl = 1;
+
+        letters[i][j].scl = 2;
       } else {
-        if (letters[i][j].scl > 0.3) {
-          letters[i][j].scl -= 0.01;
+        if (letters[i][j].scl > 0.5) {
+          letters[i][j].scl -= 0.03;
         } else {
           letters[i][j].scl = 0.3;
         }

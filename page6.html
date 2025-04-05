@@ -9,7 +9,9 @@
   <a href = index.html style ="padding-left: 162px;"> Whirl Back</a>
 
   <script>
+
   let t = "Rylanthus"; let size = 20;
+
 let waves = []; let num; 
 
 function setup() {
@@ -31,6 +33,7 @@ function draw() {
     waves[i].display();
   }
   
+
 }
 class Text {
     constructor(t, x, y, distance, amt, c) {
@@ -160,6 +163,7 @@ function easeOutBounce(x) {
   } else {
       return n1 * (x -= 2.625 / d1) * x + 0.984375;
   }
+
 }
 
 function easeInBounce(x) {
